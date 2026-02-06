@@ -1,0 +1,20 @@
+services:
+  xpra:
+    build: .
+    container_name: xpra-browser
+    restart: unless-stopped
+    ports:
+      - "14500:14500"
+    shm_size: "1gb"           # helps browsers
+    environment:
+      - TZ=America/Chicago
+    secrets:
+      - xpra_password
+    volumes:
+      - firefox_profile:/home/xpra/.mozilla
+volumes:
+  firefox_profile:
+
+secrets:
+  xpra_password:
+    file: ./xpra_password.txt
